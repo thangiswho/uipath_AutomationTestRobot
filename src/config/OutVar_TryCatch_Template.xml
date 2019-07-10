@@ -1,0 +1,31 @@
+	<TryCatch DisplayName="$VariableName Try catch" sap2010:WorkflowViewState.IdRef="TryCatch_$intTryCatchIndex">
+	  <TryCatch.Try>
+		<Assign sap2010:WorkflowViewState.IdRef="Assign_$intAssignIndex1">
+		  <Assign.To>
+			<OutArgument x:TypeArguments="x:String">[$VariableName_toString]</OutArgument>
+		  </Assign.To>
+		  <Assign.Value>
+			<InArgument x:TypeArguments="x:String">[Newtonsoft.Json.JsonConvert.SerializeObject($VariableName)]</InArgument>
+		  </Assign.Value>
+		</Assign>
+	  </TryCatch.Try>
+	  <TryCatch.Catches>
+		<Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_$intTryCatchIndex">
+		  <ActivityAction x:TypeArguments="s:Exception">
+			<ActivityAction.Argument>
+			  <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+			</ActivityAction.Argument>
+			<Assign sap2010:WorkflowViewState.IdRef="Assign_$intAssignIndex2">
+			  <Assign.To>
+				<OutArgument x:TypeArguments="x:String">[$VariableName_toString]</OutArgument>
+			  </Assign.To>
+			  <Assign.Value>
+				<InArgument x:TypeArguments="x:String">
+				  <Literal x:TypeArguments="x:String" Value="" />
+				</InArgument>
+			  </Assign.Value>
+			</Assign>
+		  </ActivityAction>
+		</Catch>
+	  </TryCatch.Catches>
+	</TryCatch>

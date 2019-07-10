@@ -1,0 +1,12 @@
+﻿17:11:46 [SimpleArrayDict] - case [Case1] tested result: True
+17:11:48 [SimpleArrayDict] tested result: 1/1 cases passed. Execution time: 8 seconds
+17:11:56 [SimpleSum] - case [Case1] tested result: True
+17:12:01 [SimpleSum] - case [Case2-Failed] tested result: False
+17:12:03 [SimpleSum] tested result: 1/2 cases passed. Execution time: 12 seconds
+17:12:03 Completed testing: 1/2 files passed. Total execution time: 2 minutes
+17:21:52 [SimpleArrayDict] - case [Case1] tested result: True
+17:21:54 [SimpleArrayDict] tested result: 1/1 cases passed. Execution time: 6 seconds
+17:21:55 [SimpleSum] - case [Case1] tested result: True
+17:21:59 [SimpleSum] - case [Case2-Failed] tested result: False
+17:21:59 [SimpleSum] tested result: 1/2 cases passed. Execution time: 5 seconds
+17:21:59 Completed testing: 1/2 files passed. Total execution time: 2 minutes
