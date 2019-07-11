@@ -70,6 +70,9 @@
     </TryCatch.Variables>
     <TryCatch.Try>
       <Flowchart DisplayName="Main" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+        <Flowchart.Variables>
+          <Variable x:TypeArguments="x:String" Default="config\config.xlsx" Name="strConfigFile" />
+        </Flowchart.Variables>
         <Flowchart.StartNode>
           <FlowStep x:Name="__ReferenceID1" sap2010:WorkflowViewState.IdRef="FlowStep_92">
             <Assign DisplayName="Execution time" sap2010:WorkflowViewState.IdRef="Assign_102">
@@ -85,17 +88,16 @@
                 <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="MainFlow Invoke" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="lib\MainFlow.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
                     <InArgument x:TypeArguments="x:String" x:Key="arg_strStartTime">[strStartTime]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="arg_strConfigFile">[strConfigFile]</InArgument>
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>
                 <FlowStep.Next>
-                  <FlowStep x:Name="__ReferenceID2">
-                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke CloseApplications" UnSafe="False" WorkflowFileName="lib\Cleanup\CloseApplications.xaml">
+                  <FlowStep x:Name="__ReferenceID2" sap2010:WorkflowViewState.IdRef="FlowStep_93">
+                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke CloseApplications" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="lib\Cleanup\CloseApplications.xaml">
                       <ui:InvokeWorkflowFile.Arguments>
                         <scg:Dictionary x:TypeArguments="x:String, Argument" />
                       </ui:InvokeWorkflowFile.Arguments>
-                      <sap2010:WorkflowViewState.IdRef>InvokeWorkflowFile_2</sap2010:WorkflowViewState.IdRef>
                     </ui:InvokeWorkflowFile>
-                    <sap2010:WorkflowViewState.IdRef>FlowStep_93</sap2010:WorkflowViewState.IdRef>
                   </FlowStep>
                 </FlowStep.Next>
               </FlowStep>
@@ -138,7 +140,7 @@
         </ActivityAction>
       </Catch>
     </TryCatch.Catches>
-    <sads:DebugSymbol.Symbol>d1JDOlxVc2Vyc1xycGEtZGV2XERlc2t0b3BcRlBULVRoYW5nXOODreODnOOCveODvOOCuVxBdXRvbWF0aW9uX1Rlc3RfUm9ib3RcTWFpbi54YW1sEkIDjgEOAgEBRTRFSQIBDkgHbBMCAQ90C3RyAgENfAuJARYCAQJLDVIWAgEWVRFZKQIBElwVYS0CARCAAQ2HARYCAQaIAQ2IAYoBAgEDUDhQaQIBGU05TUcCARdXVVdjAgEUVbgBVcsBAgETXI4BXLIBAgERhQE4hQF9AgEJggE5ggFKAgEHiAF0iAGHAQIBBA==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1BDOlxVc2Vyc1xycGEtZGV2XERlc2t0b3BcRlBULVRoYW5nXOODreODnOOCveODvOOCuVxBdXRvbWF0aW9uVGVzdFJvYm90XE1haW4ueGFtbBRCA5ABDgIBAUU0RUkCAQ5IB24TAgEPdgt2cgIBDX4LiwEWAgECSjhKTAIBEE4NVRYCARlYEV0pAgETYBVkLQIBEYIBDYkBFgIBBooBDYoBigECAQNTOFNpAgEcUDlQRwIBGlpVWmMCARdbVltlAgEVWLgBWMsBAgEUYMUBYOkBAgEShwE4hwF9AgEJhAE5hAFKAgEHigF0igGHAQIBBA==</sads:DebugSymbol.Symbol>
   </TryCatch>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -149,7 +151,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="200,51">
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="314,87">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
