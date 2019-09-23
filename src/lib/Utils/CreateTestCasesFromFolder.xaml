@@ -1,16 +1,4 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="CreateTestCasesFromFolder"
- xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
- xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
- xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
- xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
- xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
- xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
- xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
- xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
- xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
- xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System"
- xmlns:ui="http://schemas.uipath.com/workflow/activities"
- xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="CreateTestCasesFromFolder" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="arg_strSourceFolder" Type="InArgument(x:String)" />
     <x:Property Name="arg_strTestCaseTemplateFile" Type="InArgument(x:String)" />
@@ -20,6 +8,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>654,753</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>CreateTestCasesFromFolder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -66,129 +55,105 @@
       <AssemblyReference>UiPath.System.Activities</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Flowchart DisplayName="CreateTestCasesFromFolder" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+  <Flowchart sap2010:Annotation.AnnotationText="As its name, this workflow creates TestCase for all .xamls files in folder arg_strSourceFolder. It just scan all .xaml files, then invoke the workflow CreateTestCaseFromSource.&#xD;&#xA;Test cases are generated in arg_strTestCaseFolder." DisplayName="CreateTestCasesFromFolder" sap:VirtualizedContainerService.HintSize="634,693" sap2010:WorkflowViewState.IdRef="Flowchart_1">
     <Flowchart.Variables>
       <Variable x:TypeArguments="x:String" Name="strStartTime" />
     </Flowchart.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
+        <av:Size x:Key="ShapeSize">60,75</av:Size>
+        <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,137.5</av:PointCollection>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
     <Flowchart.StartNode>
-      <FlowDecision x:Name="__ReferenceID1" Condition="[Directory.Exists(arg_strSourceFolder)]" DisplayName="Source Folder exists?" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
-        <FlowDecision.True>
-          <FlowStep x:Name="__ReferenceID0" sap2010:WorkflowViewState.IdRef="FlowStep_2">
-            <Assign DisplayName="Execution time" sap2010:WorkflowViewState.IdRef="Assign_1">
-              <Assign.To>
-                <OutArgument x:TypeArguments="x:String">[strStartTime]</OutArgument>
-              </Assign.To>
-              <Assign.Value>
-                <InArgument x:TypeArguments="x:String">[System.DateTime.Now.ToString("yyyyMMdd_HHmmss")]</InArgument>
-              </Assign.Value>
-            </Assign>
-            <FlowStep.Next>
-              <FlowStep x:Name="__ReferenceID2" sap2010:WorkflowViewState.IdRef="FlowStep_1">
-                <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For each .xaml file: CreateTestCase" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[Directory.GetFiles(arg_strSourceFolder, &quot;*.xaml&quot;, SearchOption.AllDirectories)]">
-                  <ui:ForEach.Body>
-                    <ActivityAction x:TypeArguments="x:String">
-                      <ActivityAction.Argument>
-                        <DelegateInArgument x:TypeArguments="x:String" Name="strXamlFile" />
-                      </ActivityAction.Argument>
-                      <Sequence DisplayName="Each .xaml file" sap2010:WorkflowViewState.IdRef="Sequence_1">
-                        <Sequence.Variables>
-                          <Variable x:TypeArguments="x:String" Name="strXamlFileContent" />
-                          <Variable x:TypeArguments="str:Match" Name="matchArgument" />
-                          <Variable x:TypeArguments="x:String" Name="strTestCaseFile" />
-                          <Variable x:TypeArguments="x:Int32" Name="intArgumentsTotal" />
-                        </Sequence.Variables>
-                        <Assign sap2010:WorkflowViewState.IdRef="Assign_2">
-                          <Assign.To>
-                            <OutArgument x:TypeArguments="x:String">[strTestCaseFile]</OutArgument>
-                          </Assign.To>
-                          <Assign.Value>
-                            <InArgument x:TypeArguments="x:String">[Path.Combine(arg_strTestCaseFolder, Path.GetFileNameWithoutExtension(strXamlFile) + strStartTime + ".xlsx" )]</InArgument>
-                          </Assign.Value>
-                        </Assign>
-                        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke CreateTestCaseFromSource" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="lib\Utils\CreateTestCaseFromSource.xaml">
-                          <ui:InvokeWorkflowFile.Arguments>
-                            <InArgument x:TypeArguments="x:String" x:Key="arg_strXamlFile">[strXamlFile]</InArgument>
-                            <InArgument x:TypeArguments="x:String" x:Key="arg_strTestCaseTemplateFile">[arg_strTestCaseTemplateFile]</InArgument>
-                            <InArgument x:TypeArguments="x:String" x:Key="arg_strMissingFileErrorMessage">[arg_strMissingFileErrorMessage]</InArgument>
-                            <InArgument x:TypeArguments="x:String" x:Key="arg_strTestCaseFile">[strTestCaseFile]</InArgument>
-                            <OutArgument x:TypeArguments="x:Int32" x:Key="arg_intArgumentsTotal">[intArgumentsTotal]</OutArgument>
-                          </ui:InvokeWorkflowFile.Arguments>
-                        </ui:InvokeWorkflowFile>
-                        <WriteLine DisplayName="Write Line" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[String.Format(&quot;Got {0} arguments from {1}&quot;, intArgumentsTotal, Path.GetFileName(strXamlFile))]" />
-                      </Sequence>
-                    </ActivityAction>
-                  </ui:ForEach.Body>
-                </ui:ForEach>
-              </FlowStep>
-            </FlowStep.Next>
-          </FlowStep>
-        </FlowDecision.True>
-      </FlowDecision>
+      <x:Reference>__ReferenceID2</x:Reference>
     </Flowchart.StartNode>
-    <x:Reference>__ReferenceID0</x:Reference>
+    <FlowStep x:Name="__ReferenceID0" sap2010:WorkflowViewState.IdRef="FlowStep_2">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <av:Point x:Key="ShapeLocation">29,250</av:Point>
+          <av:Size x:Key="ShapeSize">262,60</av:Size>
+          <av:PointCollection x:Key="ConnectorLocation">160,310 160,340 150,340 150,360</av:PointCollection>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign DisplayName="Execution time" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[strStartTime]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[System.DateTime.Now.ToString("yyyyMMdd_HHmmss")]</InArgument>
+        </Assign.Value>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </Assign>
+      <FlowStep.Next>
+        <FlowStep x:Name="__ReferenceID1" sap2010:WorkflowViewState.IdRef="FlowStep_1">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <av:Point x:Key="ShapeLocation">50,360</av:Point>
+              <av:Size x:Key="ShapeSize">200,51</av:Size>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For each .xaml file: CreateTestCase" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[Directory.GetFiles(arg_strSourceFolder, &quot;*.xaml&quot;, SearchOption.AllDirectories)]">
+            <ui:ForEach.Body>
+              <ActivityAction x:TypeArguments="x:String">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="x:String" Name="strXamlFile" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Each .xaml file" sap:VirtualizedContainerService.HintSize="376,380" sap2010:WorkflowViewState.IdRef="Sequence_1">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="x:String" Name="strXamlFileContent" />
+                    <Variable x:TypeArguments="str:Match" Name="matchArgument" />
+                    <Variable x:TypeArguments="x:String" Name="strTestCaseFile" />
+                    <Variable x:TypeArguments="x:Int32" Name="intArgumentsTotal" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[strTestCaseFile]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[Path.Combine(arg_strTestCaseFolder, Path.GetFileNameWithoutExtension(strXamlFile) + strStartTime + ".xlsx" )]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke CreateTestCaseFromSource" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="lib\Utils\CreateTestCaseFromSource.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="x:String" x:Key="arg_strXamlFile">[strXamlFile]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="arg_strTestCaseTemplateFile">[arg_strTestCaseTemplateFile]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="arg_strMissingFileErrorMessage">[arg_strMissingFileErrorMessage]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="arg_strTestCaseFile">[strTestCaseFile]</InArgument>
+                      <OutArgument x:TypeArguments="x:Int32" x:Key="arg_intArgumentsTotal">[intArgumentsTotal]</OutArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                  </ui:InvokeWorkflowFile>
+                  <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[String.Format(&quot;Got {0} arguments from {1}&quot;, intArgumentsTotal, Path.GetFileName(strXamlFile))]" />
+                </Sequence>
+              </ActivityAction>
+            </ui:ForEach.Body>
+          </ui:ForEach>
+        </FlowStep>
+      </FlowStep.Next>
+    </FlowStep>
+    <FlowDecision x:Name="__ReferenceID2" Condition="[Directory.Exists(arg_strSourceFolder)]" DisplayName="Source Folder exists?" sap:VirtualizedContainerService.HintSize="115,87" sap2010:WorkflowViewState.IdRef="FlowDecision_1" True="{x:Reference __ReferenceID0}">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <av:Point x:Key="ShapeLocation">242.5,137.5</av:Point>
+          <av:Size x:Key="ShapeSize">115,87</av:Size>
+          <av:PointCollection x:Key="TrueConnector">242.5,181 160,181 160,250</av:PointCollection>
+          <av:PointCollection x:Key="FalseConnector">358.5,664 490,664 490,719</av:PointCollection>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </FlowDecision>
     <x:Reference>__ReferenceID1</x:Reference>
-    <x:Reference>__ReferenceID2</x:Reference>
-    <sads:DebugSymbol.Symbol>d3FDOlxVc2Vyc1xycGEtZGV2XERlc2t0b3BcRlBULVRoYW5nXOODreODnOOCveODvOOCuVxBdXRvbWF0aW9uX1Rlc3RfUm9ib3RcbGliXFV0aWxzXENyZWF0ZVRlc3RDYXNlc0Zyb21Gb2xkZXIueGFtbBRFA4QBDwIBAUo3SmACARtNDVQWAgEXVxF5HgIBAlI4UmkCARpPOU9HAgEYV7cBV5MCAgEWXRd2IgIBA2QZayICARJsGXQxAgEGdRl13gECAQRpRGmyAQIBFWZFZlYCARNuXG5pAgEQcmJydQIBDnBrcIsBAgEMcWBxcQIBCm9ob4UBAgEIbNABbPkBAgEHdXB12wECAQU=</sads:DebugSymbol.Symbol>
   </Flowchart>
-  <sap2010:WorkflowViewState.ViewStateManager>
-    <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="242,60">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="314,60" />
-      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="314,87" />
-      <sap2010:ViewStateData Id="WriteLine_1" sap:VirtualizedContainerService.HintSize="314,61" />
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,412">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEach`1_1" sap:VirtualizedContainerService.HintSize="352,546" />
-      <sap2010:ViewStateData Id="FlowStep_1">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">50,360</av:Point>
-            <av:Size x:Key="ShapeSize">200,51</av:Size>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowStep_2">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">29,250</av:Point>
-            <av:Size x:Key="ShapeSize">242,60</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">150,310 150,360</av:PointCollection>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowDecision_1" sap:VirtualizedContainerService.HintSize="115,87">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <av:Point x:Key="ShapeLocation">242.5,137.5</av:Point>
-            <av:Size x:Key="ShapeSize">115,87</av:Size>
-            <av:PointCollection x:Key="TrueConnector">242.5,181 150,181 150,250</av:PointCollection>
-            <av:PointCollection x:Key="FalseConnector">358.5,664 490,664 490,719</av:PointCollection>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Flowchart_1" sap:VirtualizedContainerService.HintSize="614,636">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-            <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
-            <av:Size x:Key="ShapeSize">60,75</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,137.5</av:PointCollection>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CreateTestCasesFromFolder_1" sap:VirtualizedContainerService.HintSize="654,716" />
-    </sap2010:ViewStateManager>
-  </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
