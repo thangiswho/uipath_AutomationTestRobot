@@ -1,3 +1,17 @@
+
+- [UiPath AutomationTestRobot](#uipath-automationtestrobot)
+  - [Inspiration](#inspiration)
+  - [What it does](#what-it-does)
+  - [How I built it](#how-i-built-it)
+  - [Challenges I ran into](#challenges-i-ran-into)
+  - [What's next for Automation Test Robot](#whats-next-for-automation-test-robot)
+- [Getting Started](#getting-started)
+  - [Configure src/config/config.xlsx](#configure-srcconfigconfigxlsx)
+  - [Try sample test cases in test_cases_sample/](#try-sample-test-cases-in-test_cases_sample)
+  - [Test your own workflow .xaml files](#test-your-own-workflow-xaml-files)
+  - [Build your own CICD environment](#build-your-own-cicd-environment)
+  - [Have fun](#have-fun)
+
 # UiPath AutomationTestRobot
 Without any more coding, you can automate testing your UiPath projects. This project enables test driven development in UiPath.
 
@@ -31,34 +45,37 @@ I wrote the Automation Test Robot just by UiPath only, without external library.
 
 # Getting Started
 
-## Edit the "**Settings**" sheet of "[config.xlsx](https://github.com/thangiswho/uipath_AutomationTestRobot/blob/master/src/config/config.xlsx)"(in src\config folder) to change the AutomationTestRobot's setting
-1. TestCaseFolderPath: set a folder of your test cases files (default: C:\AutomationTestRobot\TestCase)
-2. WorkingFolderPath: set a folder for the AutomationTestRobot creating its own temp files (default: C:\AutomationTestRobot\Working)
-3. TestResultFolderPath: set a folder to save test result files (default: C:\AutomationTestRobot\TestResult)
-4. GeneratedTestCaseFolderPath: set a folder for the AutomationTestRobot to save generated test cases template files (default: C:\AutomationTestRobot\GeneratedTestCase)
-5. ErrorScreenshotFolderPath: set a folder for the AutomationTestRobot to save screenshot when it caught unexpected exception  (default: C:\AutomationTestRobot\Error)
-6. LogFolderPath: set a folder for the AutomationTestRobot to log its own log information (default: C:\AutomationTestRobot\Logs)
-7. Unattended: choose your "Unattended mode" or "Attended mode". if FALSE, the AutomationTestRobot runs in attended mode, which shows popup for you to choose which sub-robot to run. Otherwise, TRUE, the AutomationTestRobot runs the Sub-Robot1
-  * Sub-Robot 1: Execute all your test cases
-  * Sub-Robot 2: Execute just one test case (you pickup later)
-  * Sub-Robot 3: Generate test cases template by scanning a UiPath codes folder (you pickup later)
-8. ShowInformationForm: In Unattended mode, this is always FALSE. In attended mode, if ShowInformationForm is TRUE, the AutomationTestRobot will show a WinForm to show current status (for reference)
+## Configure src/config/config.xlsx
+Configure all settings in the "**Settings**" sheet of config.xlsx before running the robot.
 
-## Use [sample test cases](https://github.com/thangiswho/uipath_AutomationTestRobot/tree/master/test_cases) in /test_cases/
-1. Edit the "**Settings**" sheet of each .xlsx test case file, set B2 value to the actual .xaml file path at your local PC.
-2. Put those test cases at the folder you set in "**TestCaseFolderPath**" in config.xlsx
-3. Run the robot, choose Sub-Robot 1
+1. **TestCaseFolderPath**: set a folder of your test cases files (default: *C:\AutomationTestRobot\TestCase*)
+2. **WorkingFolderPath**: set a folder for the AutomationTestRobot creating its own temp files (default: *C:\AutomationTestRobot\Working*)
+3. **TestResultFolderPath**: set a folder to save test result files (default: C:\AutomationTestRobot\TestResult)
+4. **GeneratedTestCaseFolderPath**: set a folder for the AutomationTestRobot to save generated test cases template files (default: *C:\AutomationTestRobot\GeneratedTestCase*)
+5. **ErrorScreenshotFolderPath**: set a folder for the AutomationTestRobot to save screenshot when it caught unexpected exception  (default: *C:\AutomationTestRobot\Error*)
+6. **LogFolderPath**: set a folder for the AutomationTestRobot to log its own log information (default: *C:\AutomationTestRobot\Logs*)
+7. **Unattended**: choose your "Unattended mode" or "Attended mode". if FALSE, the AutomationTestRobot runs in attended mode, which shows popup for you to choose which sub-robot to run. Otherwise, TRUE, the AutomationTestRobot runs the Sub-Robot1.
+  * **Sub-Robot 1**: Execute all your test cases
+  * **Sub-Robot 2**: Execute just one test case (you pickup later)
+  * **Sub-Robot 3**: Generate test cases template by scanning a UiPath codes folder (you pickup later)
+8. **ShowInformationForm**: In Unattended mode, this is always FALSE. In attended mode, if ShowInformationForm is TRUE, the AutomationTestRobot will show a WinForm to show current status (for reference)
+
+## Try sample test cases in test_cases_sample/
+1. Edit the "**Settings**" sheet of each .xlsx test case file and set B2 value to the actual .xaml file path at your local PC.
+2. Put those test cases at the folder you set in "**TestCaseFolderPath**" in *src/config/config.xlsx*
+3. Run the robot, choose **Sub-Robot 1**
 4. Check the folder "**TestResultFolderPath**" to see tested result.
 5. Check the folder "**LogFolderPath**" to see test log.
 
-## Want to test your own workflow (.xaml) file?
-* Set "**Unattended**" = FALSE in config.xlsx, then run the robot, choose Sub-Robot 3, pick you source folders.
-* Then, edit the generated test case files at "**GeneratedTestCaseFolderPath**", input your test data.
-* Note: each sheet name, except **Settings**, will be the name of the test case. Please choose only alphabet (filename compatible sheet-name).
-* Move edited test case files to the folder "**TestCaseFolderPath**", close all excel windows
-* Then, run the robot, choose Sub-Robot 1 (or 2), have a coffee, and see your tested result.
+## Test your own workflow .xaml files
+1. Set "**Unattended**" = FALSE in *src/config/config.xlsx*, then run the robot, choose Sub-Robot 3 and select your workflow folder.
+2. Next, edit the generated test case files at "**GeneratedTestCaseFolderPath**" (generated in the first step above), input your test data.
+3. Next, set name for each test case by editing the sheet names. *Note*: each sheet name, except **Settings**, will be the name of the test case. Please set only windows-file-name-compatible name for avoiding any unexpected error (for safer, set only characters in [a-zA-Z0-9-_]).
+4. Next Move completed test case files to the folder "**TestCaseFolderPath**", then close all excel windows
+5. Then, run the robot, choose *Sub-Robot 1* (or 2), have a coffee, and see your tested result.
 
-## Further, build your own CICD environment
-Just set Unattended=TRUE in config.xlsx, publish it as a robot, schedule the test, and manage the TestResult.xlsx and TestLog files in your own productive way :)
+## Build your own CICD environment
+Just set Unattended=TRUE in *src/config/config.xlsx*, publish it as a robot, schedule the automation test, and manage the TestResult.xlsx and TestLog files in your own productive way :)
 
 ## Have fun
+Customize the robot with your own needs and share it to community :)

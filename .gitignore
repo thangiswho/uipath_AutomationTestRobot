@@ -1,3 +1,4 @@
 *AutomationTestLog.txt
 .local
 test_cases/.DS_Store
+.DS_Store
